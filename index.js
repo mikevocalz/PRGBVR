@@ -5,93 +5,73 @@ import {
   Text,
   View,
   asset,
+  NativeModules,
   VrButton
 } from "react-360";
 import Fan from "./components/Fan";
 import Holo from "./components/Holo";
 import GBContent from "./components/GBContent";
+import Search from "./components/Search";
+
+const { AudioModule } = NativeModules;
 
 import { VideoPlayer, VideoControl } from "./src/VideoExtra";
-import { VIDEO_SOURCE, videoButtons } from "./data";
+import { VIDEO_SOURCE } from "./data";
 
 export default class PRGB extends Component {
   constructor() {
     super();
     this.state = {
       videoUrl: VIDEO_SOURCE,
-      selectedVideo: ""
+      hidden: true,
+      selectedVideo: "",
+      isLoading: true
     };
-    this.onClickVideo = this.onClickVideo.bind(this);
+    this.playIntro = this.playIntro.bind(this);
   }
 
-  onClickVideo(video) {
-    let selectedVideo;
-    console.log("hey", video);
-    switch (video) {
-      case 1:
-        this.setState({
-          selectedVideo: this.state.videoUrl[0].url
-        });
-        console.log(this.state.videoUrl[0].url);
-
-        break;
-      case 2:
-        this.setState({
-          selectedVideo: this.state.videoUrl[1].url
-        });
-        break;
-      case 3:
-        this.setState({
-          selectedVideo: this.state.videoUrl[2].url
-        });
-        break;
-      default:
-        null;
-    }
+  componentDidMount() {
+    this.playIntro(),
+      setTimeout(
+        function() {
+          AudioModule.stopEnvironmental(), this.setState({ hidden: false });
+        }.bind(this),
+        32000
+      );
+  }
+  async playIntro() {
+    await AudioModule.playEnvironmental({
+      source: asset("ThemeSong.mp3"),
+      volume: 0.5
+    });
   }
 
   render() {
-    const { selectedVideo } = this.state;
-
     return (
       <View style={styles.panel}>
-        <VideoPlayer
-          muted={false}
-          source={this.state.videoUrl[0] || this.state.selectedVideo}
-          showControl={true}
-          stero={"2D"}
-          volume={0.5}
-          style={{
-            width: 400,
-            height: 270
-          }}
-        />
-        {/* <View
-          style={{
-            marginTop: 5,
-            flexDirection: "row"
-          }}
-        >
-          {videoButtons.map((item, index) => (
-            <VrButton
-              key={index}
-              style={{
-                backgroundColor: "black",
-                width: 100,
-                height: 30,
-                alignItems: "center",
-                borderRadius: 5,
-                marginLeft: 10,
-                marginRight: 10
-              }}
-              onClick={() => this.onClickVideo(item.key)}
-            >
-              <Text style={{ color: "white", fontWeight: "bold" }}>
-                {item.text}
-              </Text>
-            </VrButton>
-          ))}
-        </View> */}
+        {this.state.hidden ? (
+          <View>
+            <Text style={styles.greeting}>{"Welcome to".toUpperCase()}</Text>
+            <Text style={styles.greeting}>
+              {"Grid Battle Force".toUpperCase()}
+            </Text>
+            <Text style={styles.note}>
+              {"** NOTE: LISTEN UNTIL THEME IS FINISHED".toUpperCase()}
+            </Text>
+          </View>
+        ) : (
+          <VideoPlayer
+            muted={false}
+            source={this.state.videoUrl[0]}
+            showControl={true}
+            stero={"2D"}
+            volume={0.5}
+            style={{
+              width: 400,
+              height: 270
+            }}
+          />
+        )}
       </View>
     );
   }
@@ -109,6 +89,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
+  loadingText: {
+    fontSize: 50,
+    color: "#000",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
   greetingBox: {
     padding: 20,
     backgroundColor: "#fff",
@@ -116,8 +102,16 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },
   greeting: {
-    fontSize: 30,
+    fontSize: 43,
     color: "#000",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+
+  note: {
+    marginTop: 60,
+    fontSize: 20,
+    color: "#FF0000",
     fontWeight: "bold",
     textAlign: "center"
   }
@@ -127,3 +121,4 @@ AppRegistry.registerComponent("PRGB", () => PRGB);
 AppRegistry.registerComponent("Fan", () => Fan);
 AppRegistry.registerComponent("Holo", () => Holo);
 AppRegistry.registerComponent("GBContent", () => GBContent);
+AppRegistry.registerComponent("Search", () => Search);

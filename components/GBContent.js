@@ -1,6 +1,16 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, asset, Image, VrButton } from "react-360";
 
+import {
+  StyleSheet,
+  Text,
+  View,
+  asset,
+  Image,
+  VrButton,
+  NativeModules
+} from "react-360";
+
+const { AudioModule } = NativeModules;
 import { rangerIcons } from "../data";
 
 export default class GBContent extends Component {
@@ -19,10 +29,12 @@ export default class GBContent extends Component {
   }
 
   handleClicked(ranger) {
-    const { imgs } = this.state;
-
     let selectedImage;
-    console.log("hey", imgs);
+
+    //insert audio sound
+    AudioModule.playOneShot({
+      source: asset("cursor-click.wav")
+    });
     switch (ranger) {
       case 1:
         this.setState({
@@ -95,13 +107,12 @@ export default class GBContent extends Component {
 const styles = StyleSheet.create({
   panel: {
     // Fill the entire surface
-    // marginTop: 145,
+    // marginTop: -15,
     borderRadius: 20,
-    marginLeft: 185,
-    marginTop: 95,
     width: 950,
-    height: 430,
-    backgroundColor: "rgba(255, 255, 255, 0.4)",
+    height: 460,
+    backgroundColor: "transparent",
+    // backgroundColor: "rgba(255, 255, 255, 0.4)",
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row"
@@ -131,6 +142,7 @@ const styles = StyleSheet.create({
     width: "69%",
     padding: 20,
     height: 430,
+    marginLeft: -0.3,
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
     backgroundColor: "transparent",

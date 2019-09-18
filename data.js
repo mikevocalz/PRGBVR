@@ -1,5 +1,21 @@
 import { asset } from "react-360";
 
+export const CharacterInfo = [
+  {
+    key: 1,
+    imgURL: asset("./RangerDetails/pr-gb-promo.png")
+  },
+  {
+    key: 2,
+    imgURL: asset("./RangerDetails/pr-gb-red.png")
+  },
+  { key: 3, imgURL: asset("./RangerDetails/pr-gb-yellow.png") },
+  { key: 4, imgURL: asset("./RangerDetails/pr-gb-blue.png") },
+  { key: 5, imgURL: asset("./RangerDetails/pr-gb-gold.png") },
+  { key: 6, imgURL: asset("./RangerDetails/pr-gb-silver.png") },
+  { key: 7, imgURL: asset("./RangerDetails/pr-gb-zords.png") }
+];
+
 export const VIDEO_SOURCE = [
   {
     key: 1,
@@ -8,11 +24,6 @@ export const VIDEO_SOURCE = [
   },
   {
     key: 2,
-    url: asset("./BeastVideos/AllMorphs.mp4").uri,
-    fileFormat: "mp4"
-  },
-  {
-    key: 3,
     url: asset("./BeastVideos/BeastXMegazord.mp4").uri,
     fileFormat: "mp4"
   }
