@@ -4,6 +4,9 @@
 import { ReactInstance, Location, Surface } from "react-360-web";
 import KeyboardModule from "react-360-keyboard/KeyboardModule";
 
+import WebVRPolyfill from "webvr-polyfill";
+const polyfill = new WebVRPolyfill();
+
 function init(bundle, parent, options = {}) {
   const r360 = new ReactInstance(bundle, parent, {
     // Add custom options here

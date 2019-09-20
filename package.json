@@ -1,5 +1,5 @@
 {
-  "name": "grid-battle-vr",
+  "name": "prgbvr",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -11,14 +11,11 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
-    "ovrui": "^1.4.1",
     "react": "16.3.2",
     "react-360": "~1.1.0",
     "react-360-keyboard": "^1.0.2",
     "react-360-web": "~1.1.0",
     "react-native": "~0.55.4",
-    "react-vr-controller-raycaster": "^1.1.1",
-    "simple-raycaster": "^1.1.0",
     "three": "^0.87.0",
     "webvr-polyfill": "^0.10.10"
   },
