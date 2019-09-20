@@ -36,7 +36,7 @@ export default class PRGB extends Component {
         function() {
           AudioModule.stopEnvironmental(), this.setState({ hidden: false });
         }.bind(this),
-        32000
+        33000
       );
   }
   async playIntro() {

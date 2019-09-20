@@ -6,9 +6,7 @@ import AmbientLight from "AmbientLight";
 export default class Holo extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      selected: ""
-    };
+    this.state = {};
     this.onHandleClick = this.onHandleClick.bind(this);
     this.onHandleClickTwo = this.onHandleClickTwo.bind(this);
   }
